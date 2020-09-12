@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="myFunction()">Click Me!</button>
+
+    <script>
+      const colors = [
+        "blue",
+        "green",
+        "limegreen",
+        "red",
+        "beige",
+        "cyan",
+        "deepskyblue",
+        "darkturquoise",
+      ];
+      const body = document.querySelector("body");
+      function myFunction() {
+        let randomNumber = Math.floor(Math.random() * colors.length);
+        console.log(randomNumber, colors[randomNumber]);
+
+        body.style.backgroundColor = colors[randomNumber];
+      }
+    </script>
+  </body>
+</html>
