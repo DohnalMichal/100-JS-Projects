@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pass message project</title>
+</head>
+  <body>
+    <div class="container">
+      <h1>What would you like to say?</h1>
+      <form onsubmit="event.preventDefault()">
+        <input type="text">
+        <div class="warning-message">
+          <h2>You didn't fill the answer!</h2>
+        </div>
+        <button>Pass message</button>
+      </form>
+      <h2>This is your message:</h2>
+      <h2 class="message"></h2>
+
+    
+
+    <script src="app.js"></script>
+  </body>
+</html>
