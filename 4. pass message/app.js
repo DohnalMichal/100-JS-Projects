@@ -12,7 +12,6 @@ function submitFunction() {
     answer.innerHTML = input.value;
     input.value = "";
   }
-  // answer.innerHTML = "";
 }
 
 function hideWarningMessage() {
