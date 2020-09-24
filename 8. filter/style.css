@@ -27,9 +27,10 @@ h1 {
 }
 
 .buttons {
-  width: 80%;
+  width: 60%;
   display: flex;
   justify-content: space-evenly;
+  flex-flow: row wrap;
 }
 
 button {
@@ -97,8 +98,8 @@ input {
 }
 
 .item {
-  max-height: 400px;
-  max-width: 400px;
+  max-height: 300px;
+  max-width: 300px;
   height: auto; 
   background-color: white;
   display: flex;

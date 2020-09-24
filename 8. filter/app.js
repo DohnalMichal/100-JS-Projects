@@ -1,82 +1,121 @@
-// const button = document.querySelector('button');
-// const cake = document.querySelector('.item .cake');
-// const cupcake = document.querySelector('.item .cupcake');
-// const sweets = document.querySelector('.item .sweets');
+//List of products
+const products = [
+	{
+		name: "Cake",
+		category: "cakes",
+		img: "cake-1.jpeg",
+		price: 5,
+	},
+	{
+		name: "Cake",
+		category: "cakes",
+		img: "cake-2.jpeg",
+		price: 10,
+	},
+	{
+		name: "Cake",
+		category: "cakes",
+		img: "cake-3.jpeg",
+		price: 15,
+	},
+	{
+		name: "Cupcake",
+		category: "cupcakes",
+		img: "cupcake-1.jpeg",
+		price: 5,
+	},
+	{
+		name: "Cupcake",
+		img: "cupcake-2.jpeg",
+		category: "cupcakes",
+		price: 10,
+	},
+	{
+		name: "Cupcake",
+		category: "cupcakes",
+		img: "cupcake-3.jpeg",
+		price: 15,
+		category: "cupcakes"
+	},
+	{
+		name: "Sweets",
+		category: "sweets",
+		img: "sweets-1.jpeg",
+		price: 5,
+	},
+	{
+		name: "Sweets",
+		category: "sweets",
+		img: "sweets-2.jpeg",
+		price: 10,
+	},
+	{
+		name: "Sweets",
+		category: "sweets",
+		img: "sweets-3.jpeg",
+		price: 15,
+	},
+]
+const productList = document.querySelector('#productList');
 
+const displayProducts = (product) => {
+	const htmlString = product
+		.map((product) => {
+			return `
+				<div class="item ${product.category}">
+					<div class="image">
+						<img src="./img/${product.img}"></img>
+					</div>
+					<div class="bottom">
+						<h2>${product.name}</h2>
+						<h2>$${product.price}</h2>
+					</div>
+				</div>
+        `;
+		})
+		.join('');
+	productList.innerHTML = htmlString;
+	activateFilter();
+};
 
-// button.addEventListener("click", function () {
-// 	if (button.innerHTML === "All") {
-// 		cake.style.display = "block";
-// 		cupcake.style.display = "block";
-// 		sweets.style.display = "block";
-// 	}
-// 	else if (button.innerHTML === "Cakes") {
-// 		cake.style.display = "block";
-// 		cupcake.style.display = "none";
-// 		sweets.style.display = "none";
-// 	}
-// })
+//Function to activate button filter
+function activateFilter() {
+	const buttons = document.querySelectorAll('button');
+	const storeItems = document.querySelectorAll('.item');
 
+	buttons.forEach((button) => {
+		button.addEventListener('click', (e) => {
+			e.preventDefault()
+			const filter = e.target.dataset.filter;
 
-const buttons = document.querySelectorAll('button');
-const storeItems = document.querySelectorAll('.item');
-
-// console.log(buttons);
-
-buttons.forEach(function (button) {
-	button.addEventListener('click', function (e) {
-		//prevent the default link jump to top of page
-		e.preventDefault()
-		//grab the filter button that was clicked
-		const filter = e.target.dataset.filter;
-		if (filter === 'all') {
-			//show all items
-			storeItems.forEach(function (item) {
-				item.style.display = 'block';
-			})
-		} else if (filter === 'cakes') {
-			storeItems.forEach(function (item) {
-				if (item.classList.contains('cake')) {
-					item.style.display = 'block';
+			storeItems.forEach((item) => {
+				if (filter === 'all') {
+					item.style.display = 'block'
 				} else {
-					item.style.display = 'none';
+					if (item.classList.contains(filter)) {
+						item.style.display = 'block'
+					} else {
+						item.style.display = 'none'
+					}
 				}
 			})
-		} else if (filter === 'cupcakes') {
-			storeItems.forEach(function (item) {
-				if (item.classList.contains('cupcake')) {
-					item.style.display = 'block';
-				} else {
-					item.style.display = 'none';
-				}
-			})
-		} else if (filter === 'sweets') {
-			storeItems.forEach(function (item) {
-				if (item.classList.contains('sweets')) {
-					item.style.display = 'block';
-				} else {
-					item.style.display = 'none';
-				}
-			})
-		}
+		})
 	})
-})
+};
 
 
+//Search Box
 const searchBox = document.querySelector('#search');
-const storeItem = document.querySelectorAll('.item');
 
 searchBox.addEventListener('keyup', (e) => {
-	
-	const searchFilter = e.target.value.toLowerCase();
-	//display only items that contain filter input
+	const searchString = e.target.value.toLowerCase();
 
-	storeItem.forEach((item) => {
-		if (item.textContent.includes(searchFilter)) {
-			item.style.display = 'block';
-			console.log(searchBox.value);
-		} else {
-			item.style.display = 'none';
-		}
-	})
-})
+	const filteredProducts = products.filter((product) => {
+		return (
+			product.name.toLowerCase().includes(searchString)
+		)
+	});
+	displayProducts(filteredProducts);
+});
+
+displayProducts(products);
