@@ -126,62 +126,65 @@ function modal() {
 	const storeItems = document.querySelectorAll('.item img');
 	const modal = document.querySelector('.modal');
 	const modalImage = document.querySelector('.modal-img img');
-	// console.log(storeItems);
 
-	// storeItems[0].addEventListener("click", (e) => {
-	// 	const event = e.target;
-	// 	console.log(event);
-	// })
+	//Array of image sources
+	let imageList = [];
+	imageCounter = 0;
+	storeItems.forEach(function (image) {
+		imageList.push(image.src);
+	})
 
+	//Sets imageCounter to currently clicked image
 	for (let i = 0; i < storeItems.length; i++) {
-		// console.log(storeItems[i].src);
-		storeItems[i].addEventListener('click', (e) => {
-			// console.log(storeItems[i].src);
-			let source = e.target.src;
-			// let source = storeItems[i].src;
-			modal.style.display = "flex";
-			modalImage.src = source;
-			console.log(source);
-
-			//Arrows
-			const back = document.querySelector('.back-arrow');
-			const forward = document.querySelector('.forward-arrow');
-			// const img = document.querySelector('img');
-
-			let clicks = 0;
-			// console.log(storeItems);
-			// clicks = storeItems.indexOf(e.ta);
-
-			back.addEventListener("click", function () {
-				clicks--;
-				// console.log(clicks);
-				if (clicks < storeItems.length) {
-					clicks = storeItems.length - 1;
-				}
-				modalImage.src = storeItems[clicks].src;
-			})
-
-			forward.addEventListener("click", function () {
-				clicks++;
-				if (clicks >= storeItems.length) {
-					clicks = 0;
-				}
-				modalImage.src = storeItems[clicks].src;
-			});
-
-			//Closes modal on click outside
-			window.onclick = function (event) {
-				if (event.target == modal) {
-					modal.style.display = "none";
-				}
-			}
-			//Closes modal on ESC
-			document.addEventListener("keydown", function (event) {
-				var key = event.key;
-				if (key === 'Escape' || key === 'Esc' || key === 27) {
-					modal.style.display = "none";
-				}
-			})
+		storeItems[i].addEventListener("click", function (e) {
+			let image = e.target.src;
+			imageCounter = imageList.indexOf(image);
 		})
 	}
+
+	//Displays modal
+	for (let i = 0; i < storeItems.length; i++) {
+		storeItems[i].addEventListener('click', (e) => {
+			let source = e.target.src;
+			modal.style.display = "flex";
+			modalImage.src = source;
+		})
+	}
+
+	//Arrows
+	const back = document.querySelector('.back-arrow');
+	const forward = document.querySelector('.forward-arrow');
+
+	//Back arrow
+	back.addEventListener("click", function () {
+		imageCounter--;
+		if (imageCounter < 0) {
+			imageCounter = storeItems.length - 1;
+		}
+		modalImage.src = storeItems[imageCounter].src;
+	})
+
+	//Forward button
+	forward.addEventListener("click", function () {
+		imageCounter++;
+		if (imageCounter >= storeItems.length) {
+			imageCounter = 0;
+		}
+		modalImage.src = storeItems[imageCounter].src;
+	});
+
+	// Closes modal on click outside
+	window.onclick = function (event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
+
+	//Closes modal on ESC
+	document.addEventListener("keydown", function (event) {
+		var key = event.key;
+		if (key === 'Escape' || key === 'Esc' || key === 27) {
+			modal.style.display = "none";
+		}
+	})
 }
